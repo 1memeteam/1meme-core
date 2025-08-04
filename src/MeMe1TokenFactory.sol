@@ -32,7 +32,7 @@ contract MeMe1TokenFactory is IMeMe1Factory, AccessControl {
     uint256 private constant MAX_PLATFORM_TAX_RATE = 100;
     uint256 private _platformMintTax;
     uint256 private _platformBurnTax;
-    uint256 public launchTokenFee = 0.5 ether;
+    uint256 public launchTokenFee = 10 ether;
     address private _route;
     event Initialized(uint8);
     event LaunchTokenFeeChanged(uint256 fee);
@@ -116,6 +116,7 @@ contract MeMe1TokenFactory is IMeMe1Factory, AccessControl {
     /// @inheritdoc IMeMe1Factory
     function updateBondingImplement(string calldata tokenType, address impl) public onlyRole(PLATFORM_ADMIN_ROLE) {
         _BondingImplementMap[tokenType] = impl;
+        require(_BondingImplementMap[tokenType] != address(0), "init already error");
         emit LogTokenTypeImplAdded(tokenType, impl);
     }
 

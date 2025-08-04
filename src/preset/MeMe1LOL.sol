@@ -22,10 +22,10 @@ abstract contract MeMe1LOL is MeMe1ERC20WithSupply {
 
     function initialize(address bondingCurveAddress, IMeMe1Factory.TokenInfo memory token, address factory) public virtual override {
         pair = _createPair(token.raisingTokenAddr);
-        uint256 totalSupply = 1e7 ether;
+        uint256 totalSupply = 1e8 ether;
         supplyCap = totalSupply * 80 / 100;
-        uint256 _a = 639606970277;
-        uint256 _b = 3474355.8552260143 ether;
+        uint256 _a = 0.0000944339 ether;
+        uint256 _b = 34394486.48770362 ether;
         (uint256 startTime) = abi.decode(token.data,(uint256));
         token.data = abi.encode(totalSupply, abi.encode(_a, _b));
         token.projectMintTax = 0;
@@ -67,7 +67,7 @@ abstract contract MeMe1LOL is MeMe1ERC20WithSupply {
         if (circulatingSupply() >= supplyCap - 100e18) {
             address raisingToken = getRaisingToken();
             uint256 raisedAmount = _getBalance(raisingToken);
-            uint256 finishFee = 1 ether;
+            uint256 finishFee = 1000 ether;
             _transferInternal(_factory.getPlatformTreasury(), finishFee);
             uint256 out = raisedAmount - finishFee;
             idoEnded = true;
